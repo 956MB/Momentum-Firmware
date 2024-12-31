@@ -391,10 +391,8 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
             snprintf(clk, sizeof(clk), "%02u:%02u", hour, min);
             canvas_draw_str(canvas, 5, 34, clk);
 
-            uint32_t battery_capacity = furi_hal_power_get_battery_full_capacity();
-            uint32_t battery_remaining = furi_hal_power_get_battery_remaining_capacity();
             bool ext5v = furi_hal_power_is_otg_enabled();
-            uint16_t battery_percent = (battery_remaining * 100) / battery_capacity;
+            uint8_t battery_percent = furi_hal_power_get_pct();
             bool charge_state = false;
 
             // Determine charge state
