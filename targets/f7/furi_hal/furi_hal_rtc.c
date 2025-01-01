@@ -31,14 +31,14 @@ typedef struct {
     uint8_t log_level    : 4;
     uint8_t log_reserved : 4;
     uint8_t flags;
-    FuriHalRtcBootMode boot_mode                 : 4;
-    FuriHalRtcHeapTrackMode heap_track_mode      : 2;
-    FuriHalRtcLocaleUnits locale_units           : 1;
-    FuriHalRtcLocaleTimeFormat locale_timeformat : 1;
-    FuriHalRtcLocaleDateFormat locale_dateformat : 2;
-    FuriHalRtcLogDevice log_device               : 2;
-    FuriHalRtcLogBaudRate log_baud_rate          : 3;
-    uint8_t reserved                             : 1;
+    FuriHalRtcBootMode boot_mode                         : 4;
+    FuriHalRtcHeapTrackMode heap_track_mode              : 2;
+    FuriHalRtcLocaleUnits locale_units                   : 1;
+    FuriHalRtcLocaleTimeFormat locale_timeformat         : 1;
+    FuriHalRtcLocaleMidnightFormat locale_midnightformat : 1;
+    FuriHalRtcLocaleDateFormat locale_dateformat         : 2;
+    FuriHalRtcLogDevice log_device                       : 2;
+    FuriHalRtcLogBaudRate log_baud_rate                  : 3;
 } SystemReg;
 
 _Static_assert(sizeof(SystemReg) == 4, "SystemReg size mismatch");
@@ -377,6 +377,19 @@ FuriHalRtcLocaleTimeFormat furi_hal_rtc_get_locale_timeformat(void) {
     uint32_t data_reg = furi_hal_rtc_get_register(FuriHalRtcRegisterSystem);
     SystemReg* data = (SystemReg*)&data_reg;
     return data->locale_timeformat;
+}
+
+void furi_hal_rtc_set_locale_midnightformat(FuriHalRtcLocaleMidnightFormat value) {
+    uint32_t data_reg = furi_hal_rtc_get_register(FuriHalRtcRegisterSystem);
+    SystemReg* data = (SystemReg*)&data_reg;
+    data->locale_midnightformat = value;
+    furi_hal_rtc_set_register(FuriHalRtcRegisterSystem, data_reg);
+}
+
+FuriHalRtcLocaleMidnightFormat furi_hal_rtc_get_locale_midnightformat(void) {
+    uint32_t data_reg = furi_hal_rtc_get_register(FuriHalRtcRegisterSystem);
+    SystemReg* data = (SystemReg*)&data_reg;
+    return data->locale_midnightformat;
 }
 
 void furi_hal_rtc_set_locale_dateformat(FuriHalRtcLocaleDateFormat value) {

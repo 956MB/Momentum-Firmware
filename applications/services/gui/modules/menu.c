@@ -1,5 +1,6 @@
 #include "menu.h"
 
+#include "locale/locale.h"
 #include <gui/elements.h>
 #include <assets_icons.h>
 #include <gui/icon_i.h>
@@ -384,7 +385,10 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                 hour -= 12;
             }
             if(hour == 0) {
-                hour = 12;
+                hour = (locale_get_midnight_format() == LocaleMidnightFormatTwelve &&
+                        locale_get_time_format() == LocaleTimeFormat12h) ?
+                           12 :
+                           0;
             }
             canvas_set_font(canvas, FontSecondary);
             char clk[20];

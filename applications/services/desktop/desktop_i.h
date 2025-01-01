@@ -5,6 +5,7 @@
 #include "desktop_keybinds.h"
 
 #include "animations/animation_manager.h"
+#include "locale/locale.h"
 #include "views/desktop_view_pin_timeout.h"
 #include "views/desktop_view_pin_input.h"
 #include "views/desktop_view_locked.h"
@@ -40,6 +41,7 @@ typedef struct {
     uint8_t hour;
     uint8_t minute;
     bool format_12; // 1 - 12 hour, 0 - 24H
+    LocaleMidnightFormat midnight_format;
 } DesktopClock;
 
 struct Desktop {
