@@ -14,7 +14,8 @@ MomentumSettings momentum_settings = {
     .menu_style = MenuStyleDsi, // DSi
     .lock_on_boot = false, // OFF
     .bad_pins_format = false, // OFF
-    .allow_locked_rpc_commands = false, // OFF
+    .allow_locked_rpc_usb = false, // OFF
+    .allow_locked_rpc_ble = false, // OFF
     .lockscreen_poweroff = true, // ON
     .lockscreen_time = true, // ON
     .lockscreen_seconds = false, // OFF
@@ -82,7 +83,8 @@ static const struct {
     {setting_bool(unlock_anims)},
     {setting_enum(menu_style, MenuStyleCount)},
     {setting_bool(bad_pins_format)},
-    {setting_bool(allow_locked_rpc_commands)},
+    {setting_bool(allow_locked_rpc_usb)},
+    {setting_bool(allow_locked_rpc_ble)},
     {setting_bool(lock_on_boot)},
     {setting_bool(lockscreen_poweroff)},
     {setting_bool(lockscreen_time)},
