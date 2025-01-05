@@ -5,11 +5,6 @@
 
 ARRAY_DEF(ElementArray, WidgetElement*, M_PTR_OPLIST); // NOLINT
 
-struct Widget {
-    View* view;
-    void* context;
-};
-
 typedef struct {
     ElementArray_t element;
 } GuiWidgetModel;
@@ -125,10 +120,13 @@ WidgetElement* widget_add_file_list_element(
     uint8_t y,
     uint8_t lines,
     FuriString** files,
-    size_t count) {
+    size_t count,
+    uint8_t scrollbar_y,
+    uint8_t scrollbar_height,
+    bool show_size) {
     furi_assert(widget);
-    WidgetElement* file_list_element =
-        widget_element_file_list_create(widget, x, y, lines, files, count);
+    WidgetElement* file_list_element = widget_element_file_list_create(
+        widget, x, y, lines, files, count, scrollbar_y, scrollbar_height, show_size);
     widget_add_element(widget, file_list_element);
     return file_list_element;
 }

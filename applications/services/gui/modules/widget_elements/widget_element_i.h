@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "../widget.h"
+#include "../widget_i.h"
 #include "widget_element.h"
 #include <furi.h>
 #include <gui/view.h>
@@ -41,7 +41,10 @@ WidgetElement* widget_element_file_list_create(
     uint8_t y,
     uint8_t lines,
     FuriString** files,
-    size_t count);
+    size_t count,
+    uint8_t scrollbar_y,
+    uint8_t scrollbar_height,
+    bool show_size);
 
 /** Create multi string element */
 WidgetElement* widget_element_string_multiline_create(

@@ -43,12 +43,15 @@ View* widget_get_view(Widget* widget);
 
 /** Add File List Element
  *
- * @param      widget         Widget instance
- * @param      x             x coordinate
- * @param      y             y coordinate
- * @param      lines         Number of lines visible
- * @param      files         Array of FuriString pointers
- * @param      count         Number of files
+ * @param      widget           Widget instance
+ * @param      x                x coordinate
+ * @param      y                y coordinate
+ * @param      lines            Number of lines visible
+ * @param      files            Array of FuriString pointers
+ * @param      count            Number of files
+ * @param      scrollbar_y      Y coordinate of the scrollbar
+ * @param      scrollbar_height Height of the scrollbar
+ * @param      show_size        Show file size
  */
 WidgetElement* widget_add_file_list_element(
     Widget* widget,
@@ -56,7 +59,10 @@ WidgetElement* widget_add_file_list_element(
     uint8_t y,
     uint8_t lines,
     FuriString** files,
-    size_t count);
+    size_t count,
+    uint8_t scrollbar_y,
+    uint8_t scrollbar_height,
+    bool show_size);
 
 /** Add Multi String Element
  *

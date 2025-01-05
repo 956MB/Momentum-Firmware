@@ -35,7 +35,15 @@ void archive_scene_delete_on_enter(void* context) {
                     "\e#Delete %d files?\e#",
                     model->selected_count);
                 widget_add_file_list_element(
-                    app->widget, 0, 23, 3, model->selected_files, model->selected_count);
+                    app->widget,
+                    0,
+                    23,
+                    3,
+                    model->selected_files,
+                    model->selected_count,
+                    14,
+                    FRAME_HEIGHT * 3,
+                    false);
             } else {
                 ArchiveFile_t* current = archive_get_current_file(browser);
                 FuriString* filename = furi_string_alloc();
