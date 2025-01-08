@@ -25,14 +25,18 @@ void momentum_app_scene_interface_graphics_pack_warning_on_enter(void* context) 
         "Info",
         momentum_app_scene_interface_graphics_pack_warning_widget_callback,
         app);
-
     widget_add_text_box_element(
-        app->widget, 0, 0, 128, 23, AlignCenter, AlignCenter, "\e#Size Warning\e#", false);
-
-    const char* body =
-        "Your selected pack contains Fonts & Icons, which remain loaded and use up memory";
+        app->widget, 0, 0, 128, 22, AlignCenter, AlignCenter, "\e#Size Warning\e#", false);
     widget_add_string_multiline_element(
-        app->widget, 0, 18, AlignLeft, AlignTop, FontSecondary, body);
+        app->widget,
+        64,
+        33,
+        AlignCenter,
+        AlignCenter,
+        FontSecondary,
+        "Your selected pack contains\n"
+        "Fonts & Icons, which remain\n"
+        "loaded and use up memory.");
 
     view_dispatcher_switch_to_view(app->view_dispatcher, MomentumAppViewWidget);
 }
