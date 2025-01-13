@@ -42,6 +42,7 @@
 
 ### Fixed:
 - Desktop: Fixed Wardriving animation design (by @Davim09)
+- Main Menu: Fix MNTM style battery percent off by 1 (#339 by @956MB)
 - OFW: Fix lost BadBLE keystrokes (by @Astrrra)
 - OFW: GPIO: Fix USB UART Bridge Crash by increasing system stack size (by @Astrrra)
 - OFW: Loader: Fix BusFault in handling of OOM (by @Willy-JL)
