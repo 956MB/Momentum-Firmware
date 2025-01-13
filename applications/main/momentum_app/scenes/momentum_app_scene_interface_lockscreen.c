@@ -135,7 +135,7 @@ void momentum_app_scene_interface_lockscreen_on_enter(void* context) {
 
     item = variable_item_list_add(
         var_item_list,
-        "(USB) Allow RPC While Locked",
+        "Allow USB RPC While Locked",
         2,
         momentum_app_scene_interface_lockscreen_allow_locked_rpc_usb_changed,
         app);
@@ -145,7 +145,7 @@ void momentum_app_scene_interface_lockscreen_on_enter(void* context) {
 
     item = variable_item_list_add(
         var_item_list,
-        "(BLE) Allow RPC While Locked",
+        "Allow BLE RPC While Locked",
         2,
         momentum_app_scene_interface_lockscreen_allow_locked_rpc_ble_changed,
         app);
