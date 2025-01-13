@@ -1,3 +1,8 @@
+### Breaking Changes:
+- Lockscreen: Separate 'Allow RPC While Locked' settings for USB/BLE (#343 by @956MB)
+  - Both default to OFF like before
+  - If you had enabled this option before, you will need to re-enable
+
 ### Added:
 - Apps:
   - Games: Pinball0 (by @rdefeo)
