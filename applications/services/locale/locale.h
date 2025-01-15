@@ -19,8 +19,8 @@ typedef enum {
 } LocaleTimeFormat;
 
 typedef enum {
-    LocaleMidnightFormatTwelve = 0, /**< 12:XX format */
-    LocaleMidnightFormatZero = 1, /**< 00:XX format */
+    LocaleMidnightFormat12 = 0, /**< 12:XX format */
+    LocaleMidnightFormat00 = 1, /**< 00:XX format */
 } LocaleMidnightFormat;
 
 typedef enum {

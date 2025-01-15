@@ -99,7 +99,7 @@ static void desktop_clock_draw_callback(Canvas* canvas, void* context) {
             hour -= 12;
         }
         if(hour == 0) {
-            hour = (desktop->clock.midnight_format == LocaleMidnightFormatZero) ? 0 : 12;
+            hour = (desktop->clock.midnight_format == LocaleMidnightFormat00) ? 0 : 12;
         }
     }
 

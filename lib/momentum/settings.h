@@ -60,6 +60,11 @@ typedef struct {
     int32_t cycle_anims;
     bool unlock_anims;
     MenuStyle menu_style;
+    bool menu_name;
+    bool menu_level;
+    bool menu_time;
+    bool menu_battery;
+    bool menu_otg;
     bool lock_on_boot;
     bool bad_pins_format;
     bool allow_locked_rpc_commands;

@@ -81,7 +81,7 @@ void desktop_view_locked_draw_lockscreen(Canvas* canvas, void* m) {
         pm = datetime.hour > 12;
         snprintf(meridian_str, 3, datetime.hour >= 12 ? "PM" : "AM");
         if(datetime.hour == 0) {
-            datetime.hour = (model->midnight_format == LocaleMidnightFormatZero) ? 0 : 12;
+            datetime.hour = (model->midnight_format == LocaleMidnightFormat00) ? 0 : 12;
         }
     }
     snprintf(time_str, 9, "%.2d:%.2d", pm ? datetime.hour - 12 : datetime.hour, datetime.minute);

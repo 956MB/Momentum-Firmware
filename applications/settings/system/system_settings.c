@@ -171,8 +171,8 @@ const char* const midnight_format_text[] = {
 };
 
 const uint32_t midnight_format_value[] = {
-    LocaleMidnightFormatTwelve,
-    LocaleMidnightFormatZero,
+    LocaleMidnightFormat12,
+    LocaleMidnightFormat00,
 };
 
 static void midnight_format_changed(VariableItem* item) {
