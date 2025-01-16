@@ -323,15 +323,19 @@ bool archive_scene_browser_on_event(void* context, SceneManagerEvent event) {
                 ArchiveBrowserViewModel * model,
                 {
                     ArchiveFile_t* current = archive_get_current_file(browser);
-                    for(size_t i = 0; i < model->selected_count; i++) {
-                        if(furi_string_cmp(model->selected_files[i], current->path) == 0) {
-                            furi_string_free(model->selected_files[i]);
-                            for(size_t j = i; j < model->selected_count - 1; j++) {
-                                model->selected_files[j] = model->selected_files[j + 1];
+                    if(!current->selected && current->type == ArchiveFileTypeFolder) {
+                        archive_deselect_children(model, furi_string_get_cstr(current->path));
+                    } else {
+                        for(size_t i = 0; i < model->selected_count; i++) {
+                            if(furi_string_cmp(model->selected_files[i], current->path) == 0) {
+                                furi_string_free(model->selected_files[i]);
+                                for(size_t j = i; j < model->selected_count - 1; j++) {
+                                    model->selected_files[j] = model->selected_files[j + 1];
+                                }
+                                model->selected_count--;
+                                current->selected = false;
+                                break;
                             }
-                            model->selected_count--;
-                            current->selected = false;
-                            break;
                         }
                     }
                 },
