@@ -89,7 +89,6 @@ struct ArchiveBrowserView {
     ArchiveBrowserViewCallback callback;
     void* context;
     FuriString* path;
-    FuriString* prev_path;
     FuriString* formatted_path;
     bool path_changed;
     InputKey last_tab_switch_dir;

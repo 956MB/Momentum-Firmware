@@ -105,7 +105,6 @@ static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
         }
     }
 
-    furi_string_set(browser->prev_path, browser->path);
     browser->path_changed = false;
 }
 
@@ -660,7 +659,6 @@ ArchiveBrowserView* browser_alloc(void) {
     browser->scroll_timer = furi_timer_alloc(browser_scroll_timer, FuriTimerTypePeriodic, browser);
 
     browser->path = furi_string_alloc_set(archive_get_default_path(TAB_DEFAULT));
-    browser->prev_path = furi_string_alloc();
     browser->formatted_path = furi_string_alloc();
     browser->path_changed = true;
 
@@ -696,7 +694,6 @@ void browser_free(ArchiveBrowserView* browser) {
         false);
 
     furi_string_free(browser->path);
-    furi_string_free(browser->prev_path);
     furi_string_free(browser->formatted_path);
 
     view_free(browser->view);
