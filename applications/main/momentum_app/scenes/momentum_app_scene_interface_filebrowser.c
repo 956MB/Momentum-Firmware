@@ -98,7 +98,7 @@ void momentum_app_scene_interface_filebrowser_on_enter(void* context) {
 
     item = variable_item_list_add(
         var_item_list,
-        "Show Browser Path",
+        "Show Path",
         BrowserPathModeCount,
         momentum_app_scene_interface_filebrowser_browser_path_mode_changed,
         app);
