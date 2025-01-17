@@ -7,6 +7,7 @@
 - Apps:
   - Games: Pinball0 (by @rdefeo)
   - NFC: Metroflip (by @luu176)
+- Archive: Setting to show dynamic path in file browser statusbar (#322 by @956MB)
 - CLI: Add `clear` and `cls` commands, add `did you mean ...?` command suggestion (#342 by @dexvleads)
 - Main Menu: Add coverflow menu style (#314 by @CodyTolene)
 - BadKB: Added german Mac keyboard Layout (#325 by @Cloudy261)
