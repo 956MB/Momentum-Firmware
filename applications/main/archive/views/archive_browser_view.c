@@ -65,11 +65,11 @@ static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
     }
 
     ArchiveTabEnum tab = archive_get_tab(browser);
-    if(!momentum_settings.show_browser_path || archive_is_home(browser)) {
+    if(!momentum_settings.browser_path_mode || archive_is_home(browser)) {
         furi_string_set(browser->formatted_path, ArchiveTabNames[tab]);
     } else {
         const char* path = furi_string_get_cstr(browser->path);
-        switch(momentum_settings.show_browser_path) {
+        switch(momentum_settings.browser_path_mode) {
         case BrowserPathFull:
             furi_string_set(browser->formatted_path, browser->path);
             break;

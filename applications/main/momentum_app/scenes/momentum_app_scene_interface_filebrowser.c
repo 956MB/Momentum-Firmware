@@ -46,11 +46,11 @@ static void
 }
 
 static void
-    momentum_app_scene_interface_filebrowser_show_browser_path_changed(VariableItem* item) {
+    momentum_app_scene_interface_filebrowser_browser_path_mode_changed(VariableItem* item) {
     MomentumApp* app = variable_item_get_context(item);
     uint8_t index = variable_item_get_current_value_index(item);
     variable_item_set_current_value_text(item, browser_path_names[index]);
-    momentum_settings.show_browser_path = index;
+    momentum_settings.browser_path_mode = index;
     app->save_settings = true;
 }
 
@@ -100,11 +100,11 @@ void momentum_app_scene_interface_filebrowser_on_enter(void* context) {
         var_item_list,
         "Show Browser Path",
         BrowserPathModeCount,
-        momentum_app_scene_interface_filebrowser_show_browser_path_changed,
+        momentum_app_scene_interface_filebrowser_browser_path_mode_changed,
         app);
-    variable_item_set_current_value_index(item, momentum_settings.show_browser_path);
+    variable_item_set_current_value_index(item, momentum_settings.browser_path_mode);
     variable_item_set_current_value_text(
-        item, browser_path_names[momentum_settings.show_browser_path]);
+        item, browser_path_names[momentum_settings.browser_path_mode]);
 
     item = variable_item_list_add(
         var_item_list,

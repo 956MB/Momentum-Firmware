@@ -30,7 +30,7 @@ MomentumSettings momentum_settings = {
     .sort_dirs_first = true, // ON
     .show_hidden_files = false, // OFF
     .show_internal_tab = false, // OFF
-    .show_browser_path = BrowserPathOff, // OFF
+    .browser_path_mode = BrowserPathOff, // OFF
     .favorite_timeout = 0, // OFF
     .dark_mode = false, // OFF
     .rgb_backlight = false, // OFF
@@ -101,7 +101,7 @@ static const struct {
     {setting_bool(sort_dirs_first)},
     {setting_bool(show_hidden_files)},
     {setting_bool(show_internal_tab)},
-    {setting_bool(show_browser_path)},
+    {setting_enum(browser_path_mode, BrowserPathModeCount)},
     {setting_uint(favorite_timeout, 0, 60)},
     {setting_bool(dark_mode)},
     {setting_bool(rgb_backlight)},

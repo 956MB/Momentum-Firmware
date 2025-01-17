@@ -87,7 +87,7 @@ typedef struct {
     bool sort_dirs_first;
     bool show_hidden_files;
     bool show_internal_tab;
-    BrowserPathMode show_browser_path;
+    BrowserPathMode browser_path_mode;
     uint32_t favorite_timeout;
     bool dark_mode;
     bool rgb_backlight;
