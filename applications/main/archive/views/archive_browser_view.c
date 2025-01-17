@@ -58,7 +58,7 @@ void archive_browser_set_callback(
     browser->context = context;
 }
 
-static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
+static void archive_update_statusbar_title(ArchiveBrowserViewModel* model) {
     ArchiveBrowserView* browser = model->archive->browser;
     if(!browser->path_changed) {
         return;
@@ -66,20 +66,20 @@ static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
 
     if(model->tab_idx == ArchiveTabSearch &&
        scene_manager_get_scene_state(model->archive->scene_manager, ArchiveAppSceneSearch)) {
-        furi_string_set(browser->formatted_path, "Searching");
+        furi_string_set(browser->statusbar_title, "Searching");
 
     } else if(momentum_settings.browser_path_mode == BrowserPathOff || archive_is_home(browser)) {
-        furi_string_set(browser->formatted_path, ArchiveTabNames[model->tab_idx]);
+        furi_string_set(browser->statusbar_title, ArchiveTabNames[model->tab_idx]);
 
     } else {
         const char* path = furi_string_get_cstr(browser->path);
         switch(momentum_settings.browser_path_mode) {
         case BrowserPathFull:
-            furi_string_set(browser->formatted_path, browser->path);
+            furi_string_set(browser->statusbar_title, browser->path);
             break;
 
         case BrowserPathBrief: {
-            furi_string_reset(browser->formatted_path);
+            furi_string_reset(browser->statusbar_title);
             FuriString* token = furi_string_alloc();
             FuriString* remaining = furi_string_alloc_set(path);
 
@@ -87,13 +87,13 @@ static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
                 size_t slash_pos = furi_string_search_char(remaining, '/');
                 if(slash_pos == FURI_STRING_FAILURE) {
                     furi_string_cat_printf(
-                        browser->formatted_path, "/%s", furi_string_get_cstr(remaining));
+                        browser->statusbar_title, "/%s", furi_string_get_cstr(remaining));
                     break;
                 }
                 furi_string_set_n(token, remaining, 0, slash_pos);
                 if(furi_string_size(token) > 0) {
                     furi_string_cat_printf(
-                        browser->formatted_path, "/%c", furi_string_get_char(token, 0));
+                        browser->statusbar_title, "/%c", furi_string_get_char(token, 0));
                 }
                 furi_string_right(remaining, slash_pos + 1);
             }
@@ -104,7 +104,7 @@ static void archive_update_formatted_path(ArchiveBrowserViewModel* model) {
         }
 
         case BrowserPathCurrent:
-            path_extract_basename(path, browser->formatted_path);
+            path_extract_basename(path, browser->statusbar_title);
             break;
 
         default:
@@ -332,7 +332,7 @@ static void draw_list(Canvas* canvas, ArchiveBrowserViewModel* model) {
 static void archive_render_status_bar(Canvas* canvas, ArchiveBrowserViewModel* model) {
     furi_assert(model);
 
-    archive_update_formatted_path(model);
+    archive_update_statusbar_title(model);
     bool clip = model->clipboard != NULL;
 
     canvas_draw_icon(canvas, 0, 0, &I_Background_128x11);
@@ -351,7 +351,7 @@ static void archive_render_status_bar(Canvas* canvas, ArchiveBrowserViewModel* m
         25,
         9,
         45,
-        model->archive->browser->formatted_path,
+        model->archive->browser->statusbar_title,
         model->scroll_counter,
         false,
         true);
@@ -654,7 +654,7 @@ ArchiveBrowserView* browser_alloc(void) {
     browser->scroll_timer = furi_timer_alloc(browser_scroll_timer, FuriTimerTypePeriodic, browser);
 
     browser->path = furi_string_alloc_set(archive_get_default_path(TAB_DEFAULT));
-    browser->formatted_path = furi_string_alloc();
+    browser->statusbar_title = furi_string_alloc();
     browser->path_changed = true;
 
     with_view_model(
@@ -689,7 +689,7 @@ void browser_free(ArchiveBrowserView* browser) {
         false);
 
     furi_string_free(browser->path);
-    furi_string_free(browser->formatted_path);
+    furi_string_free(browser->statusbar_title);
 
     view_free(browser->view);
     free(browser);
