@@ -381,14 +381,14 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
             furi_hal_rtc_get_datetime(&curr_dt);
             uint8_t hour = curr_dt.hour;
             uint8_t min = curr_dt.minute;
-            if(hour > 12) {
-                hour -= 12;
-            }
-            if(hour == 0) {
-                hour = (locale_get_midnight_format() == LocaleMidnightFormatTwelve &&
-                        locale_get_time_format() == LocaleTimeFormat12h) ?
-                           12 :
-                           0;
+            LocaleTimeFormat time_format = locale_get_time_format();
+            if(time_format == LocaleTimeFormat12h) {
+                if(hour > 12) {
+                    hour -= 12;
+                }
+                if(hour == 0) {
+                    hour = (momentum_settings.midnight_format_00 ? 0 : 12);
+                }
             }
             canvas_set_font(canvas, FontSecondary);
             char clk[20];

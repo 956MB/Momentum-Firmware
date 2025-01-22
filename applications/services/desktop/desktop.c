@@ -58,13 +58,10 @@ static void desktop_clock_update(Desktop* desktop) {
     DateTime curr_dt;
     furi_hal_rtc_get_datetime(&curr_dt);
     bool time_format_12 = locale_get_time_format() == LocaleTimeFormat12h;
-    LocaleMidnightFormat midnight_format = locale_get_midnight_format();
 
     if(desktop->clock.hour != curr_dt.hour || desktop->clock.minute != curr_dt.minute ||
-       desktop->clock.format_12 != time_format_12 ||
-       desktop->clock.midnight_format != midnight_format) {
+       desktop->clock.format_12 != time_format_12) {
         desktop->clock.format_12 = time_format_12;
-        desktop->clock.midnight_format = midnight_format;
         desktop->clock.hour = curr_dt.hour;
         desktop->clock.minute = curr_dt.minute;
         view_port_update(desktop->clock_viewport);
@@ -99,7 +96,7 @@ static void desktop_clock_draw_callback(Canvas* canvas, void* context) {
             hour -= 12;
         }
         if(hour == 0) {
-            hour = (desktop->clock.midnight_format == LocaleMidnightFormatZero) ? 0 : 12;
+            hour = momentum_settings.midnight_format_00 ? 0 : 12;
         }
     }
 

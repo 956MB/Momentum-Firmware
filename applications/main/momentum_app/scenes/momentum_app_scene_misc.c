@@ -6,6 +6,7 @@ enum VarItemListIndex {
     VarItemListIndexSpoof,
     VarItemListIndexVgm,
     VarItemListIndexChargeCap,
+    VarItemListIndexMidnightFormat,
     VarItemListIndexShowMomentumIntro,
 };
 
@@ -22,6 +23,14 @@ static void momentum_app_scene_misc_charge_cap_changed(VariableItem* item) {
     snprintf(cap_str, sizeof(cap_str), "%lu%%", value);
     variable_item_set_current_value_text(item, cap_str);
     momentum_settings.charge_cap = value;
+    app->save_settings = true;
+}
+
+static void momentum_app_scene_interface_midnight_format_changed(VariableItem* item) {
+    MomentumApp* app = variable_item_get_context(item);
+    bool value = variable_item_get_current_value_index(item);
+    variable_item_set_current_value_text(item, value ? "00:XX" : "12:XX");
+    momentum_settings.midnight_format_00 = value;
     app->save_settings = true;
 }
 
@@ -54,6 +63,16 @@ void momentum_app_scene_misc_on_enter(void* context) {
         app);
     variable_item_set_current_value_index(item, value_index - 1);
     variable_item_set_current_value_text(item, cap_str);
+
+    item = variable_item_list_add(
+        var_item_list,
+        "Clock Midnight Format",
+        2,
+        momentum_app_scene_interface_midnight_format_changed,
+        app);
+    variable_item_set_current_value_index(item, momentum_settings.midnight_format_00);
+    variable_item_set_current_value_text(
+        item, momentum_settings.midnight_format_00 ? "00:XX" : "12:XX");
 
     variable_item_list_add(var_item_list, "Show Momentum Intro", 0, NULL, app);
 
