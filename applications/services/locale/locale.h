@@ -19,11 +19,6 @@ typedef enum {
 } LocaleTimeFormat;
 
 typedef enum {
-    LocaleMidnightFormat12 = 0, /**< 12:XX format */
-    LocaleMidnightFormat00 = 1, /**< 00:XX format */
-} LocaleMidnightFormat;
-
-typedef enum {
     LocaleDateFormatDMY = 0, /**< Day/Month/Year */
     LocaleDateFormatMDY = 1, /**< Month/Day/Year */
     LocaleDateFormatYMD = 2, /**< Year/Month/Day */
@@ -68,18 +63,6 @@ LocaleTimeFormat locale_get_time_format(void);
  * @param[in]  format  The Locale Time Format
  */
 void locale_set_time_format(LocaleTimeFormat format);
-
-/** Get Locale midnight format
- *
- * @return     The locale midnight format.
- */
-LocaleMidnightFormat locale_get_midnight_format(void);
-
-/** Set Locale midnight format
- *
- * @param[in]  format  The locale midnight format
- */
-void locale_set_midnight_format(LocaleMidnightFormat format);
 
 /** Format time to furi string
  *

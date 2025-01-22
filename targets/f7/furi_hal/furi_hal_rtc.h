@@ -66,11 +66,6 @@ typedef enum {
 } FuriHalRtcLocaleTimeFormat;
 
 typedef enum {
-    FuriHalRtcLocaleMidnightFormatTwelve = 0x0, /**< 12:XX format */
-    FuriHalRtcLocaleMidnightFormatZero = 0x1, /**< 00:XX format */
-} FuriHalRtcLocaleMidnightFormat;
-
-typedef enum {
     FuriHalRtcLocaleDateFormatDMY = 0x0, /**< Day/Month/Year */
     FuriHalRtcLocaleDateFormatMDY = 0x1, /**< Month/Day/Year */
     FuriHalRtcLocaleDateFormatYMD = 0x2, /**< Year/Month/Day */
@@ -235,18 +230,6 @@ void furi_hal_rtc_set_locale_timeformat(FuriHalRtcLocaleTimeFormat value);
  * @return     The RTC Locale Time Format.
  */
 FuriHalRtcLocaleTimeFormat furi_hal_rtc_get_locale_timeformat(void);
-
-/** Set RTC Locale Midnight Format
- *
- * @param[in]  value  The RTC Locale Midnight Format
- */
-void furi_hal_rtc_set_locale_midnightformat(FuriHalRtcLocaleMidnightFormat value);
-
-/** Get RTC Locale Midnight Format
- *
- * @return     The RTC Locale Midnight Format.
- */
-FuriHalRtcLocaleMidnightFormat furi_hal_rtc_get_locale_midnightformat(void);
 
 /** Set RTC Locale Date Format
  *

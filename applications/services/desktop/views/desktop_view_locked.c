@@ -8,7 +8,6 @@
 #include <locale/locale.h>
 #include <momentum/momentum.h>
 
-#include "../desktop_i.h"
 #include "desktop_view_locked.h"
 
 #define COVER_MOVING_INTERVAL_MS (50)
@@ -44,7 +43,6 @@ typedef struct {
     bool pin_locked;
     int8_t cover_offset;
     DesktopViewLockedState view_state;
-    LocaleMidnightFormat midnight_format;
 } DesktopViewLockedModel;
 
 void desktop_view_locked_set_callback(
@@ -81,7 +79,7 @@ void desktop_view_locked_draw_lockscreen(Canvas* canvas, void* m) {
         pm = datetime.hour > 12;
         snprintf(meridian_str, 3, datetime.hour >= 12 ? "PM" : "AM");
         if(datetime.hour == 0) {
-            datetime.hour = (model->midnight_format == LocaleMidnightFormat00) ? 0 : 12;
+            datetime.hour = momentum_settings.midnight_format_00 ? 0 : 12;
         }
     }
     snprintf(time_str, 9, "%.2d:%.2d", pm ? datetime.hour - 12 : datetime.hour, datetime.minute);
@@ -301,7 +299,6 @@ void desktop_view_locked_lock(DesktopViewLocked* locked_view, bool pin_locked) {
     furi_assert(model->view_state == DesktopViewLockedStateUnlocked);
     model->view_state = DesktopViewLockedStateLocked;
     model->pin_locked = pin_locked;
-    model->midnight_format = locale_get_midnight_format();
     view_commit_model(locked_view->view, true);
 }
 

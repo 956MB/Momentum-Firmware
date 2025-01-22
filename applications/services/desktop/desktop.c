@@ -58,13 +58,10 @@ static void desktop_clock_update(Desktop* desktop) {
     DateTime curr_dt;
     furi_hal_rtc_get_datetime(&curr_dt);
     bool time_format_12 = locale_get_time_format() == LocaleTimeFormat12h;
-    LocaleMidnightFormat midnight_format = locale_get_midnight_format();
 
     if(desktop->clock.hour != curr_dt.hour || desktop->clock.minute != curr_dt.minute ||
-       desktop->clock.format_12 != time_format_12 ||
-       desktop->clock.midnight_format != midnight_format) {
+       desktop->clock.format_12 != time_format_12) {
         desktop->clock.format_12 = time_format_12;
-        desktop->clock.midnight_format = midnight_format;
         desktop->clock.hour = curr_dt.hour;
         desktop->clock.minute = curr_dt.minute;
         view_port_update(desktop->clock_viewport);
@@ -99,7 +96,7 @@ static void desktop_clock_draw_callback(Canvas* canvas, void* context) {
             hour -= 12;
         }
         if(hour == 0) {
-            hour = (desktop->clock.midnight_format == LocaleMidnightFormat00) ? 0 : 12;
+            hour = momentum_settings.midnight_format_00 ? 0 : 12;
         }
     }
 
@@ -196,11 +193,11 @@ static void desktop_stop_auto_lock_timer(Desktop* desktop) {
 
 static void desktop_auto_lock_arm(Desktop* desktop) {
     if(desktop->settings.auto_lock_delay_ms) {
-        if(desktop->input_events_subscription == NULL) {
+        if(!desktop->input_events_subscription) {
             desktop->input_events_subscription = furi_pubsub_subscribe(
                 desktop->input_events_pubsub, desktop_auto_lock_callback, desktop);
         }
-        if(desktop->ascii_events_subscription == NULL) {
+        if(!desktop->ascii_events_subscription) {
             desktop->ascii_events_subscription = furi_pubsub_subscribe(
                 desktop->ascii_events_pubsub, desktop_auto_lock_callback, desktop);
         }
@@ -394,13 +391,17 @@ void desktop_lock(Desktop* desktop, bool with_pin) {
         furi_hal_rtc_set_pin_fails(0);
     }
 
-    if(with_pin && !momentum_settings.allow_locked_rpc_commands) {
-        Cli* cli = furi_record_open(RECORD_CLI);
-        cli_session_close(cli);
-        furi_record_close(RECORD_CLI);
-        Bt* bt = furi_record_open(RECORD_BT);
-        bt_close_rpc_connection(bt);
-        furi_record_close(RECORD_BT);
+    if(with_pin) {
+        if(!momentum_settings.allow_locked_rpc_usb) {
+            Cli* cli = furi_record_open(RECORD_CLI);
+            cli_session_close(cli);
+            furi_record_close(RECORD_CLI);
+        }
+        if(!momentum_settings.allow_locked_rpc_ble) {
+            Bt* bt = furi_record_open(RECORD_BT);
+            bt_close_rpc_connection(bt);
+            furi_record_close(RECORD_BT);
+        }
     }
 
     desktop_auto_lock_inhibit(desktop);
@@ -429,12 +430,16 @@ void desktop_unlock(Desktop* desktop) {
     furi_hal_rtc_set_pin_fails(0);
 
     if(with_pin) {
-        Cli* cli = furi_record_open(RECORD_CLI);
-        cli_session_open(cli, &cli_vcp);
-        furi_record_close(RECORD_CLI);
-        Bt* bt = furi_record_open(RECORD_BT);
-        bt_open_rpc_connection(bt);
-        furi_record_close(RECORD_BT);
+        if(!momentum_settings.allow_locked_rpc_usb) {
+            Cli* cli = furi_record_open(RECORD_CLI);
+            cli_session_open(cli, &cli_vcp);
+            furi_record_close(RECORD_CLI);
+        }
+        if(!momentum_settings.allow_locked_rpc_ble) {
+            Bt* bt = furi_record_open(RECORD_BT);
+            bt_open_rpc_connection(bt);
+            furi_record_close(RECORD_BT);
+        }
     }
 
     DesktopStatus status = {.locked = false};

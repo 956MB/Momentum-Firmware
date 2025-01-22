@@ -18,14 +18,6 @@ void locale_set_time_format(LocaleTimeFormat format) {
     furi_hal_rtc_set_locale_timeformat((FuriHalRtcLocaleTimeFormat)format);
 }
 
-LocaleMidnightFormat locale_get_midnight_format(void) {
-    return (LocaleMidnightFormat)furi_hal_rtc_get_locale_midnightformat();
-}
-
-void locale_set_midnight_format(LocaleMidnightFormat format) {
-    furi_hal_rtc_set_locale_midnightformat((FuriHalRtcLocaleMidnightFormat)format);
-}
-
 LocaleDateFormat locale_get_date_format(void) {
     return (LocaleDateFormat)furi_hal_rtc_get_locale_dateformat();
 }
