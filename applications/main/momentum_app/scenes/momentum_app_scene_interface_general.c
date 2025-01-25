@@ -50,12 +50,6 @@ bool momentum_app_scene_interface_general_on_event(void* context, SceneManagerEv
         scene_manager_set_scene_state(
             app->scene_manager, MomentumAppSceneInterfaceGeneral, event.event);
         consumed = true;
-        switch(event.event) {
-        case VarItemListIndexScrollType:
-            scene_manager_next_scene(app->scene_manager, MomentumAppSceneInterfaceGeneral);
-        default:
-            break;
-        }
     }
 
     return consumed;
