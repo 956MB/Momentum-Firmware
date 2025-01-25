@@ -7,11 +7,16 @@
 - Apps:
   - Games: Pinball0 (by @rdefeo)
   - GPIO: FlipperHTTP: FlipWorld (by @jblanked)
+  - GPIO: TEA5767 FM Radio (by @coolshrimp)
   - NFC: Metroflip (by @luu176)
   - USB: USB Game Controller (by @expected-ingot)
+- Infrared:
+  - Easy Learn mode to quickly save buttons without typing (#350 by @jaylikesbunda)
+  - Move Easy Learn and Learn RAW toggles inside Learning/Receiving screen for quick access, RAW mode doesn't require Debug anymore (by @Willy-JL)
 - Archive: Setting to show dynamic path in file browser statusbar (#322 by @956MB)
 - CLI: Add `clear` and `cls` commands, add `did you mean ...?` command suggestion (#342 by @dexvleads)
 - Main Menu: Add coverflow menu style (#314 by @CodyTolene)
+- MNTM Settings: Add Menu Style submenu for easier selection (#359 by @jaylikesbunda)
 - BadKB: Added german Mac keyboard Layout (#325 by @Cloudy261)
 - UL: Sub-GHz: Jolly Motors support with add manually (by @pkooiman & @xMasterX)
 - OFW: Desktop: Add winter animations (by @Astrrra)
@@ -51,7 +56,7 @@
   - UL: NFC Magic: Added possibility to write 7b MFC to Gen1 tags (by @mishamyte)
   - UL: Unitemp: Fixed handling of hPa units (by @shininghero)
   - UL: Fixed apps for firmware USB CDC callback changes (by @xMasterX)
-- Infrared: Update universal bluray remote (#348 by @jaylikesbunda)
+- Infrared: Update audio, bluray and tv universal remotes (#348 #358 by @jaylikesbunda)
 - NFC:
   - OFW: Replace mf_classic_dict.nfc with Proxmark3 version (by @onovy)
   - OFW: More station IDs for Clipper plugin (by @ted-logan)
