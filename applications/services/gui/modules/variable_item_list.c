@@ -5,7 +5,7 @@
 #include <assets_icons.h>
 #include <m-array.h>
 #include <stdint.h>
-
+#include <lib/momentum/settings.h>
 struct VariableItem {
     FuriString* label;
     uint8_t current_value_index;
@@ -108,14 +108,16 @@ static void variable_item_list_draw_callback(Canvas* canvas, void* _model) {
                 label_width = 71;
             }
 
-            elements_scrollable_text_line(
+            elements_scrollable_text_line_ex(
                 canvas,
                 6,
                 item_text_y,
                 label_width,
                 item->label,
                 scroll_counter,
-                (position != model->position));
+                (position != model->position),
+                false,
+                momentum_settings.scroll_marquee);
 
             if(item->locked) {
                 canvas_draw_icon(canvas, value_pos_x, item_text_y - 8, &I_Lock_7x8);
@@ -124,7 +126,7 @@ static void variable_item_list_draw_callback(Canvas* canvas, void* _model) {
                     canvas_draw_str(canvas, value_pos_x, item_text_y, "<");
                 }
 
-                elements_scrollable_text_line_centered(
+                elements_scrollable_text_line_ex(
                     canvas,
                     (115 + value_pos_x) / 2 + 1,
                     item_text_y,
@@ -132,7 +134,8 @@ static void variable_item_list_draw_callback(Canvas* canvas, void* _model) {
                     item->current_value_text,
                     scroll_counter,
                     false,
-                    true);
+                    true,
+                    momentum_settings.scroll_marquee);
 
                 if(item->current_value_index < (item->values_count - 1)) {
                     canvas_draw_str(canvas, 115, item_text_y, ">");

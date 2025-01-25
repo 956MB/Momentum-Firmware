@@ -606,14 +606,16 @@ static void browser_draw_list(Canvas* canvas, FileBrowserModel* model) {
             canvas_draw_icon(
                 canvas, 2, Y_OFFSET + 1 + i * FRAME_HEIGHT, BrowserItemIcons[item_type]);
         }
-        elements_scrollable_text_line(
+        elements_scrollable_text_line_ex(
             canvas,
             15,
             Y_OFFSET + 9 + i * FRAME_HEIGHT,
             (show_scrollbar ? MAX_LEN_PX - 6 : MAX_LEN_PX),
             filename,
             scroll_counter,
-            (model->item_idx != idx));
+            (model->item_idx != idx),
+            false,
+            momentum_settings.scroll_marquee);
     }
 
     if(show_scrollbar) {

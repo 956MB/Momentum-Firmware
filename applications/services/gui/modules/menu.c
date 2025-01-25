@@ -128,8 +128,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                 menu_centered_icon(canvas, item, 4, 3 + 22 * i, 14, 14);
                 menu_get_name(item, name, false);
                 size_t scroll_counter = menu_scroll_counter(model, i == 1);
-                elements_scrollable_text_line(
-                    canvas, 22, 14 + 22 * i, 98, name, scroll_counter, false);
+                elements_scrollable_text_line_ex(
+                    canvas,
+                    22,
+                    14 + 22 * i,
+                    98,
+                    name,
+                    scroll_counter,
+                    false,
+                    false,
+                    momentum_settings.scroll_marquee);
             }
             // Frame and scrollbar
             elements_frame(canvas, 0, 21, 128 - 5, 21);
@@ -163,8 +171,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                 menu_centered_icon(canvas, item, x_off, y_off, 40, 20);
                 menu_get_name(item, name, true);
                 size_t scroll_counter = menu_scroll_counter(model, selected);
-                elements_scrollable_text_line_centered(
-                    canvas, 20 + x_off, 26 + y_off, 36, name, scroll_counter, false, true);
+                elements_scrollable_text_line_ex(
+                    canvas,
+                    20 + x_off,
+                    26 + y_off,
+                    36,
+                    name,
+                    scroll_counter,
+                    false,
+                    true,
+                    momentum_settings.scroll_marquee);
                 if(selected) {
                     canvas_set_color(canvas, ColorBlack);
                 } else {
@@ -205,15 +221,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                     canvas_set_font(canvas, FontPrimary);
                     menu_get_name(item, name, false);
                     size_t scroll_counter = menu_scroll_counter(model, true);
-                    elements_scrollable_text_line_centered(
+                    elements_scrollable_text_line_ex(
                         canvas,
                         pos_x,
                         pos_y - height / 2 - 8,
-                        126,
+                        124,
                         name,
                         scroll_counter,
                         false,
-                        true);
+                        true,
+                        momentum_settings.scroll_marquee);
                 } else {
                     pos_x += (width + 6) * i;
                     pos_y += 2;
@@ -256,14 +273,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                     canvas_set_font(canvas, FontSecondary);
                     menu_get_name(item, name, true);
                     size_t scroll_counter = menu_scroll_counter(model, true);
-                    elements_scrollable_text_line(
+                    elements_scrollable_text_line_ex(
                         canvas,
                         pos_x + width / 2 + 2,
                         pos_y + height / 2 + 7,
                         74,
                         name,
                         scroll_counter,
-                        false);
+                        false,
+                        false,
+                        momentum_settings.scroll_marquee);
                 } else {
                     pos_x += (width + 1) * i + (i < 0 ? -6 : 6);
                 }
@@ -300,8 +319,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                 menu_centered_icon(canvas, item, 0, y_off, 16, 16);
                 menu_get_name(item, name, true);
                 size_t scroll_counter = menu_scroll_counter(model, selected);
-                elements_scrollable_text_line(
-                    canvas, 17, y_off + 12, 46, name, scroll_counter, false);
+                elements_scrollable_text_line_ex(
+                    canvas,
+                    17,
+                    y_off + 12,
+                    46,
+                    name,
+                    scroll_counter,
+                    false,
+                    false,
+                    momentum_settings.scroll_marquee);
                 if(selected) {
                     canvas_set_color(canvas, ColorBlack);
                 }
@@ -342,8 +369,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                     snprintf(indexstr, sizeof(indexstr), "%d.", index);
                     furi_string_replace_at(name, 0, 0, indexstr);
 
-                    elements_scrollable_text_line(
-                        canvas, x_off + 2, y_off + 12, 60, name, scroll_counter, false);
+                    elements_scrollable_text_line_ex(
+                        canvas,
+                        x_off + 2,
+                        y_off + 12,
+                        60,
+                        name,
+                        scroll_counter,
+                        false,
+                        false,
+                        momentum_settings.scroll_marquee);
 
                     if(selected) {
                         canvas_set_color(canvas, ColorBlack);
@@ -374,8 +409,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                     item = MenuItemArray_get(model->items, index);
                     menu_get_name(item, name, true);
 
-                    elements_scrollable_text_line(
-                        canvas, x_off + 1, y_off + 7, 62, name, scroll_counter, false);
+                    elements_scrollable_text_line_ex(
+                        canvas,
+                        x_off + 1,
+                        y_off + 7,
+                        62,
+                        name,
+                        scroll_counter,
+                        false,
+                        false,
+                        momentum_settings.scroll_marquee);
 
                     if(selected) {
                         canvas_set_color(canvas, ColorBlack);
@@ -454,7 +497,16 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                 menu_get_name(item, name, true);
                 uint8_t yPos = startY + ((i - position) * itemHeight);
                 size_t scroll_counter = menu_scroll_counter(model, i == position);
-                elements_scrollable_text_line(canvas, 83, yPos, 43, name, scroll_counter, false);
+                elements_scrollable_text_line_ex(
+                    canvas,
+                    83,
+                    yPos,
+                    43,
+                    name,
+                    scroll_counter,
+                    false,
+                    false,
+                    momentum_settings.scroll_marquee);
             }
             break;
         }
@@ -549,7 +601,7 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
             if(center_item) {
                 menu_get_name(center_item, name, false);
                 size_t scroll_counter = menu_scroll_counter(model, true);
-                elements_scrollable_text_line_centered(
+                elements_scrollable_text_line_ex(
                     canvas,
                     pos_x_center,
                     (pos_y_center + icon_size / 2) + pos_y_offset,
@@ -557,7 +609,8 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
                     name,
                     scroll_counter,
                     false,
-                    true);
+                    true,
+                    momentum_settings.scroll_marquee);
             }
 
             // Add scrollbar element
